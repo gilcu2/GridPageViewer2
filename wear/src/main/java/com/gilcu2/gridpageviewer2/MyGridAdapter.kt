@@ -13,10 +13,7 @@ import android.view.Gravity
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.learnandroidwear.simplegridview.R
 
 
@@ -53,22 +50,36 @@ class MyGridAdapter(internal var mContext: Context, internal var mImages: IntArr
 
     fun createPage1(viewGroup: ViewGroup): Any {
 
-        val frame = FrameLayout(mContext)
+        val layout = LinearLayout(mContext)
+        layout.setOrientation(LinearLayout.VERTICAL)
 
         val text = TextView(mContext)
         text.text = "1"
         text.gravity = Gravity.CENTER or Gravity.TOP
         text.setTextSize(TypedValue.COMPLEX_UNIT_SP, 80f)
-        frame.addView(text)
+        layout.addView(text)
 
-        val button = ImageButton(mContext)
-        button.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_4_black_24dp))
-        val size = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40f, getResources().getDisplayMetrics())
-        button.wi
+        val layoutB = LinearLayout(mContext)
+
+        val buttonL = ImageButton(mContext)
+        buttonL.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_4_black_24dp))
+        val size = (40 * mContext.getResources().getDisplayMetrics().density + 0.5f).toInt()
+        val params = ViewGroup.LayoutParams(size, size)
+        buttonL.layoutParams = params
+//        button.foregroundGravity = Gravity.LEFT or Gravity.BOTTOM
+        layoutB.addView(buttonL)
+
+        val buttonR = ImageButton(mContext)
+        buttonR.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_brightness_5_black_24dp))
+        buttonR.layoutParams = params
+//        button.foregroundGravity = Gravity.LEFT or Gravity.BOTTOM
+        layoutB.addView(buttonR)
+
+        layout.addView(layoutB)
 
 
-        viewGroup.addView(frame)
-        return frame
+        viewGroup.addView(layout)
+        return layout
     }
 
     fun createPage2(viewGroup: ViewGroup): Any {
